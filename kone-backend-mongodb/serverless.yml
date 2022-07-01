@@ -1,0 +1,33 @@
+org: pdhruv93
+app: kone-backend
+service: kone-backend-mongodb-service-2
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs16.x
+  httpApi:
+    cors: true
+
+functions:
+  listEquipments:
+    handler: handlers/listEquipments.listEquipments
+    events:
+      - httpApi:
+          path: /equipment/search
+          method: get
+
+  getEquipment:
+    handler: handlers/getEquipment.getEquipment
+    events:
+      - httpApi:
+          path: /equipment/{equipmentNumber}
+          method: get
+
+  addEquipment:
+    handler: handlers/addEquipment.addEquipment
+    events:
+      - httpApi:
+          path: /equipment
+          method: post
